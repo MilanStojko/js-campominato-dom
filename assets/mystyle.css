@@ -1,0 +1,38 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.easy {
+    width: 1004px;
+}
+  
+.medium{
+    width: 904px;
+}
+  
+.hard{
+    width: 704px;
+}
+.mygrid{
+    margin: 100px auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+  
+.cell{
+    margin: 0 0;
+    height: 100px;
+    width: 100px;
+    border: 2px solid #fff;
+    background-color: #555;
+    transition: background-color 0.3s;
+    font-size: 2rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.azzuro{
+    background-color: aqua;
+}
