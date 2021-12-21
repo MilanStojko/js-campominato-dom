@@ -7,25 +7,9 @@ let easy = document.getElementById("ez");
 let mediocre = document.getElementById("mediocre");
 let tough = document.getElementById("tough");
 
-
-function colorit(){
-    for(i=0; i < colored.length; i++){
-        colored[i].addEventListener("click", function(){
-            if(bombArr.includes(parseInt(this.innerHTML))){
-                this.classList.add ("rosso");
-                console.log (this.innerHTML)
-            }else{
-                this.classList.add ("azzuro");
-            }
-            console.log (this.innerHTML)
-            console.log (colored[i])
-            
-        })
-    }
-    console.log(bombArr);
-}
-
 let bombArr = [];
+
+let killGame = false;
 
 function addbombs(){
     const maxBomb = 16;
@@ -40,7 +24,34 @@ function addbombs(){
     console.log(bombArr);
 }
 
+function stopgame(){
+    for (let j = 0; j < colored.length; j++){
+        if(bombArr.includes(parseInt(colored[j].innerHTML))){
+            colored[j].classList.add ("rosso");
+        }
+    }
+}
 
+
+function colorit(){
+    let points = 0;
+    for(i=0; i < colored.length; i++){
+        colored[i].addEventListener("click", function(){
+            if(bombArr.includes(parseInt(this.innerHTML))){
+                this.classList.add ("rosso");
+                console.log (this.innerHTML);
+                stopgame();
+
+            }else{
+                this.classList.add ("azzuro");
+                points ++;
+                document.querySelector(".result").innerHTML = (`Il tuo puntenggio è il seguente ${points}`);
+            }
+            console.log(points);
+        })
+    }
+    console.log(bombArr);
+}
 
 easy.addEventListener("click", function(){
     bombArr = [];
