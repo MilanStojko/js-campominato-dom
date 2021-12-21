@@ -11,6 +11,10 @@ let bombArr = [];
 
 let killGame = false;
 
+function stopgame (){
+    killGame = true;
+}
+
 function addbombs(){
     const maxBomb = 16;
     for(let j = 0; j < 16; j++){
@@ -24,7 +28,7 @@ function addbombs(){
     console.log(bombArr);
 }
 
-function stopgame(){
+function allred(){
     for (let j = 0; j < colored.length; j++){
         if(bombArr.includes(parseInt(colored[j].innerHTML))){
             colored[j].classList.add ("rosso");
@@ -34,18 +38,30 @@ function stopgame(){
 
 
 function colorit(){
+    killGame = false;
+    let t = 0
     let points = 0;
     for(i=0; i < colored.length; i++){
         colored[i].addEventListener("click", function(){
+            if(killGame){return}
             if(bombArr.includes(parseInt(this.innerHTML))){
                 this.classList.add ("rosso");
                 console.log (this.innerHTML);
+                allred();
                 stopgame();
 
             }else{
-                this.classList.add ("azzuro");
-                points ++;
-                document.querySelector(".result").innerHTML = (`Il tuo puntenggio è il seguente ${points}`);
+                if(!this.classList.contains("azzuro")){
+                    this.classList.add ("azzuro");
+                    t ++;
+                    if (t > colored.length - 16){
+                        stopgame();
+                        alert ("congfuckingratulations");
+                    }
+                    points ++;
+                    document.querySelector(".result").innerHTML = (`Il tuo puntenggio è il seguente ${points}`);
+                }
+                
             }
             console.log(points);
         })
