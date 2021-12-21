@@ -9,14 +9,41 @@ let tough = document.getElementById("tough");
 
 
 function colorit(){
-    for(i=1; i < colored.length; i++){
+    for(i=0; i < colored.length; i++){
         colored[i].addEventListener("click", function(){
-            this.classList.add ("azzuro");
+            if(bombArr.includes(parseInt(this.innerHTML))){
+                this.classList.add ("rosso");
+                console.log (this.innerHTML)
+            }else{
+                this.classList.add ("azzuro");
+            }
+            console.log (this.innerHTML)
+            console.log (colored[i])
+            
         })
     }
+    console.log(bombArr);
 }
 
+let bombArr = [];
+
+function addbombs(){
+    const maxBomb = 16;
+    for(let j = 0; j < 16; j++){
+        let newBomb = parseInt(Math.floor(Math.random()*100 + 1));
+        if (bombArr.includes(newBomb)){
+            j--;
+        }else{
+            bombArr.push (newBomb);
+        }
+    }
+    console.log(bombArr);
+}
+
+
+
 easy.addEventListener("click", function(){
+    bombArr = [];
     grid.innerHTML = "";
     grid.classList.remove("medium", "hard");
     grid.classList.add("easy");
@@ -24,10 +51,14 @@ easy.addEventListener("click", function(){
         grid.innerHTML += `
         <div class = "cell"> ${i} </div>
         `
+
     }
+    addbombs();
     colorit();
+    
 })
 mediocre.addEventListener("click", function(){
+    bombArr = [];
     grid.innerHTML = "";
     grid.classList.remove("easy", "hard");
     grid.classList.add("medium");
@@ -36,9 +67,11 @@ mediocre.addEventListener("click", function(){
         <div class = "cell"> ${i} </div>
         `
     }
+    addbombs();
     colorit();
 })
 tough.addEventListener("click", function(){
+    bombArr = [];
     grid.innerHTML = "";
     grid.classList.remove("medium", "easy");
     grid.classList.add("hard");
@@ -47,5 +80,6 @@ tough.addEventListener("click", function(){
         <div class = "cell"> ${i} </div>
         `
     }
+    addbombs();
     colorit();
 })
