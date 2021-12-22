@@ -7,40 +7,65 @@ let easy = document.getElementById("ez");
 let mediocre = document.getElementById("mediocre");
 let tough = document.getElementById("tough");
 
+let maxCells = 0;
+
 let bombArr = [];
 
-let killGame = false;
+let killGame = false;                           //dichiarazione maggior parte delle variabili
 
-function stopgame (){
+function stopgame (){                           //function per stoppare il gioco
     killGame = true;
 }
 
-function addbombs(){
+function wingame(winner){
+    if (winner > colored.length - 16){
+        stopgame();
+        alert ("congfuckingratulations");
+        location.reload();
+    }
+}
+
+function generateRandom(min, max){
+    let radomized = parseInt(Math.floor(Math.random()*(max - min + 1)));
+    return radomized;
+}
+
+function safe(safe){
+    let t = 0;
+    if(!safe.classList.contains("azzuro")){
+        safe.classList.add ("azzuro");
+        t ++;
+        wingame (t);
+    }
+}
+
+function addbombs(){                            //function per aggiungere le bombe all'array
     const maxBomb = 16;
     for(let j = 0; j < 16; j++){
-        let newBomb = parseInt(Math.floor(Math.random()*100 + 1));
+        let newBomb = generateRandom(1, maxCells);
         if (bombArr.includes(newBomb)){
             j--;
         }else{
             bombArr.push (newBomb);
+            
         }
     }
     console.log(bombArr);
 }
 
-function allred(){
-    for (let j = 0; j < colored.length; j++){
+function allred(){                              //function per far comparire tutti i rossi al momento
+    for (let j = 0; j < colored.length; j++){   // del click su anche solo uno
         if(bombArr.includes(parseInt(colored[j].innerHTML))){
             colored[j].classList.add ("rosso");
+            colored[j].innerHTML = '<i class="fas fa-bomb"></i';
         }
     }
 }
 
 
-function colorit(){
+function colorit(){ 
+    let points = 0;                            //funzione che aggiunge l'event listenere ai bottoni e aggiunge tutto il neccessario perchè il programma funzioni in poche parole 
     killGame = false;
-    let t = 0
-    let points = 0;
     for(i=0; i < colored.length; i++){
         colored[i].addEventListener("click", function(){
             if(killGame){return}
@@ -49,42 +74,33 @@ function colorit(){
                 console.log (this.innerHTML);
                 allred();
                 stopgame();
-
             }else{
-                if(!this.classList.contains("azzuro")){
-                    this.classList.add ("azzuro");
-                    t ++;
-                    if (t > colored.length - 16){
-                        stopgame();
-                        alert ("congfuckingratulations");
-                    }
-                    points ++;
-                    document.querySelector(".result").innerHTML = (`Il tuo puntenggio è il seguente ${points}`);
-                }
-                
+                safe(this);
+                points ++;
+                console.log (points);
+                document.querySelector(".result").innerHTML = (`Il tuo puntenggio è il seguente ${points}`);     
             }
-            console.log(points);
         })
     }
     console.log(bombArr);
 }
 
 easy.addEventListener("click", function(){
+    maxCells = 100;
     bombArr = [];
     grid.innerHTML = "";
     grid.classList.remove("medium", "hard");
     grid.classList.add("easy");
-    for(i=1; i <= 100; i++){
-        grid.innerHTML += `
-        <div class = "cell"> ${i} </div>
-        `
-
+    for(let i=1; i <= 100; i++){
+            grid.innerHTML += `
+            <div class = "cell"> ${i} </div>
+            `
     }
     addbombs();
     colorit();
-    
 })
 mediocre.addEventListener("click", function(){
+    maxCells = 81;
     bombArr = [];
     grid.innerHTML = "";
     grid.classList.remove("easy", "hard");
@@ -98,6 +114,7 @@ mediocre.addEventListener("click", function(){
     colorit();
 })
 tough.addEventListener("click", function(){
+    maxCells = 49;
     bombArr = [];
     grid.innerHTML = "";
     grid.classList.remove("medium", "easy");
@@ -110,3 +127,8 @@ tough.addEventListener("click", function(){
     addbombs();
     colorit();
 })
+
+$(window).on("load", function(){
+    $(".loader-wrapper").fadeOut("slow");
+});
+

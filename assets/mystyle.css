@@ -3,16 +3,105 @@
     padding: 0;
     box-sizing: border-box;
 }
+.loader-wrapper{   
+    width: 100%;
+    height: 100%;
+    position:absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+body, html {
+    height: 100%;
+    text-align: center;
+}
+
+body {
+  background-color: #242F3F;
+}
+
+.loader {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  position: relative;
+  border: 4px solid #Fff;
+  animation: loader 2s infinite ease;
+}
+
+.loader-inner {
+  vertical-align: top;
+  display: inline-block;
+  width: 100%;
+  background-color: #fff;
+  animation: loader-inner 2s infinite ease-in;
+}
+
+@keyframes loader {
+  0% {
+    transform: rotate(0deg);
+  }
+  
+  25% {
+    transform: rotate(180deg);
+  }
+  
+  50% {
+    transform: rotate(180deg);
+  }
+  
+  75% {
+    transform: rotate(360deg);
+  }
+  
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loader-inner {
+  0% {
+    height: 0%;
+  }
+  
+  25% {
+    height: 0%;
+  }
+  
+  50% {
+    height: 100%;
+  }
+  
+  75% {
+    height: 100%;
+  }
+  
+  100% {
+    height: 0%;
+  }
+}
+.contenitore_bottone{
+    height: 100px;
+}
+body{
+    background-image: url(img/xqlgfA.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.contenitore_main{
+    height: 700px;
+}
 .easy {
-    width: 1004px;
+    width: calc(65px*10);
 }
   
 .medium{
-    width: 904px;
+    width: calc(65px*9);
 }
   
 .hard{
-    width: 704px;
+    width: calc(65px*7);
 }
 .mygrid{
     margin: 100px auto;
@@ -22,15 +111,16 @@
   
 .cell{
     margin: 0 0;
-    height: 100px;
-    width: 100px;
-    border: 2px solid #fff;
-    background-color: #555;
+    height: 65px;
+    width: 65px;
+    border: 2px solid skyblue;
+    background-color: greenyellow;
     transition: background-color 0.3s;
     font-size: 2rem;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    mask-mode: luminance;
 }
 
 .azzuro{
@@ -39,3 +129,16 @@
 .rosso{
     background-color: red;
 }
+.container_result{
+    width: 600px;
+    background-color: #545041;
+    opacity: 0.9;
+    border-radius: 20px;
+    color: black;
+}
+.container_result:hover{
+    opacity: 1;
+}
+/* #canvas{
+    position: absolute;
+} */
