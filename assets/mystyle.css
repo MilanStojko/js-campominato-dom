@@ -121,6 +121,7 @@ body{
     justify-content: space-around;
     align-items: center;
     mask-mode: luminance;
+    cursor: pointer;
 }
 
 .azzuro{
